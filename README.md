@@ -1,70 +1,41 @@
 # CAPSTONE Project 
 
-## Celebrities Final Project
+## Celebrities API Final Project
 The Celebrities API project is a project where you can add, delete, update and view actors and movies.
 There are 2 user roles who can manipulate movies and actors.
 
 * DIRECTED ROLE: GET movies and actors, DELETE actors, UPDATE movies and actors, POST actors.
 * EXECUTIVE ROLE: GET movies and actors, DELETE movies and actors, update movies and actors, POST movies and actors (DOES IT ALL).
 
-## 
-1. Display questions - both all questions and by category. Questions should show the question, category and difficulty rating by default and can show/hide the answer.
-2. Delete questions.
-3. Add questions and require that they include question and answer text.
-4. Search for questions based on a text query string.
-5. Play the quiz game, randomizing either all questions or within a specific category.
+## Local Development
 
-
-## Getting Started
-### Pre-requisites and Local Development
-Developers using this project should already have Python3, pip and node installed on their local machines.
-#### Backend
-From the backend folder run pip install requirements.txt. All required packages are included in the requirements file.
-
-To run the application run the following commands:
+### Installing Dependencies
+1. **Python 3.7** - Follow instructions to install the latest version of python for your platform in the [python docs](https://docs.python.org/3/using/unix.html#getting-and-installing-the-latest-version-of-python)
+2. **Virtual Enviornment** - We recommend working within a virtual environment whenever using Python for projects. This keeps your dependencies for each project separate and organaized. Instructions for setting up a virual enviornment for your platform can be found in the [python docs](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
+3. **PIP Dependencies** - Once you have your virtual environment setup and running, install dependencies by naviging to the `/backend` directory and running:
 ```bash
-export FLASK_APP=flaskr
-export FLASK_ENV=development
-flask run
+pip install -r requirements.txt
 ```
+This will install all of the required packages we selected within the `requirements.txt` file.
 
-These commands put the application in development and directs our application to use the __init__.py file in our flaskr folder. Working in development mode shows an interactive debugger in the console and restarts the server whenever changes are made. If running locally on Windows, look for the commands in the Flask documentation.
+### Running the server
 
-The application is run on http://127.0.0.1:5000/ by default and is a proxy in the frontend configuration.
+To run the server, execute:
 
-The [./backend](https://github.com/udacity/FSND/blob/master/projects/02_trivia_api/starter/backend/README.md) directory contains a partially completed Flask and SQLAlchemy server. 
-
-
-#### Frontend
-From the frontend folder, run the following commands to start the client:
 ```bash
-npm install // only once to install dependencies
-npm start 
+flask run --reload
 ```
-By default, the frontend will run on localhost:3000.
+### Unittesting the application
+To test the application locally run the following command
 
-
-
-
-The [./frontend](https://github.com/udacity/FSND/blob/master/projects/02_trivia_api/starter/frontend/README.md) directory contains a complete React frontend to consume the data from the Flask server. 
-
-
-#### Test
-To run the tests, run
 ```bash
-dropdb trivia_test
-createdb trivia_test
-psql trivia_test < trivia.psql
-python test_flaskr.py
+python test_app.py
 ```
-The first time you run the tests, omit the dropdb command.
-
-
 
 ## API Reference
-### Getting Started
-* Base URL: At present this app can only be run locally and is not hosted as a base URL. The backend app is hosted at the default, ` http://127.0.0.1:5000/ `, which is set as a proxy in the frontend configuration
-* Authentication: This version of the application does not require authentication or API keys.
+ALL API endpoints can be accessed via https://moviecapstonefsnd.herokuapp.com/
+Auth0 authentication require some information can be found in setup.sh
+
 
 ### Error Handling
 Errors are returned as JSON objects in the following format:
@@ -82,7 +53,7 @@ The API will return three error types when requests fail:
 * 422: Not Processable
 
 ### Endpoints
-GET /categories
+GET /movies
 * General :
   * returns a dictionary of categories object and a success value
   * ` curl http://127.0.0.1:5000/categories ` Sample:
