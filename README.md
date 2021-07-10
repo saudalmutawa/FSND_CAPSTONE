@@ -57,7 +57,7 @@ The API will return three error types when requests fail:
 GET /movies
 * General :
   * returns a a list of movies objects, number of movies and a success value (It does not require any authentications)
-  * ` curl http://127.0.0.1:5000/movies ` Sample:
+  * Sample:
 ```bash
 {
     "Movies": [
@@ -95,7 +95,7 @@ GET /movies
 GET /actors
 * General: 
   * returns a list of actors object, number of actors, success value.
-  * ` curl http://127.0.0.1:5000/actors ` Sample:
+  * Sample:
 ```bash
 {
     "Actors": [
@@ -127,7 +127,7 @@ GET /actors
 DELETE /movies/{movie_id} (Requires Executive ROLE)
 * General:
   * Takes a movie id and remove it from the database, returns a list of movies object, number of movies, delete movie id and success value.
-  * ` curl http://127.0.0.1:5000/movies/5 -X DELETE ` Sample:
+  * Sample:
 ```bash
 {
     "Movies": [
@@ -158,10 +158,10 @@ DELETE /movies/{movie_id} (Requires Executive ROLE)
 }
 ```
 
-DELETE /actors (Require EXECUTIVE or DIRECTED ROLE)
+DELETE /actors/{actor_id} (Requires EXECUTIVE or DIRECTED ROLE)
 * General:
   * Takes an actor id and remove it from the database, returns a list of actors object, number of actors, delete actor id and success value
-  * ` curl http://127.0.0.1:5000/actors/5 -X DELETE `
+  * Sample: 
 ```bash
 {
     "Actors": [
@@ -188,53 +188,141 @@ DELETE /actors (Require EXECUTIVE or DIRECTED ROLE)
 ```
 POST /movies (Requires EXECUTIVE ROLE)
 * General: 
-  * inserts a movie into the database 
-  * ` curl http://127.0.0.1:5000/categories/4/questions '
+  * inserts a movie into the database and returns a list of movies objects, movie_added_id, number of movies and success value.
+  * Sample:
 ```bash
 {
-  "current_category": null,
-  "questions": [
-    {
-      "answer": "Muhammad Ali",
-      "category": 4,
-      "difficulty": 1,
-      "id": 9,
-      "question": "What boxer's original name is Cassius Clay?"
-    },
-    {
-      "answer": "George Washington Carver",
-      "category": 4,
-      "difficulty": 2,
-      "id": 12,
-      "question": "Who invented Peanut Butter?"
-    },
-    {
-      "answer": "Scarab",
-      "category": 4,
-      "difficulty": 4,
-      "id": 23,
-      "question": "Which dung beetle was worshipped by the ancient Egyptians?"
-    }
-  ],
-  "success": true,
-  "total_questions": 3
+    "Movies": [
+        {
+            "genres": "WZUP2",
+            "id": 5,
+            "title": "WZUPMM2"
+        },
+        {
+            "genres": "WZUP2",
+            "id": 8,
+            "title": "WZUPMldmsldsssM2"
+        },
+        {
+            "genres": "WZUP2",
+            "id": 9,
+            "title": "WZUPMldmddsldsssM2"
+        },
+        {
+            "genres": "WZUP2",
+            "id": 10,
+            "title": "WZUPMldmddxxsldsssM2"
+        },
+        {
+            "genres": "WZUP2",
+            "id": 11,
+            "title": "zzz"
+        }
+    ],
+    "movie_added_id": 11,
+    "movies_count": 5,
+    "success": true
 }
 ```
-POST /quizzes
-* General:
-  * Takes a quiz category and previous questions list and returns a success value and random question object that's not in the list
-  * ` curl http:127.0.0.1:5000/quizzes -X POST -H "Content-Type:application/json" -d '{"quiz_category":{"type":"art","id":2},"previous_questions":[]}' `
+POST /actors (Requires EXECUTIVE or DIRECTED ROLE)
+* General: 
+  * inserts an actor into the database and returns a list of actors objects, actors_added_id, number of actors and success value.
+  * Sample:
 ```bash
 {
-      "answer": "Mona Lisa", 
-      "category": 2, 
-      "difficulty": 3, 
-      "id": 17, 
-      "question": "La Giaconda is better known as what?"
-    },
+    "Actors": [
+        {
+            "age": 3,
+            "fullname": "KALID",
+            "id": 3
+        },
+        {
+            "age": 10,
+            "fullname": "A222LI",
+            "id": 4
+        },
+        {
+            "age": 30,
+            "fullname": "Nssozzssuf",
+            "id": 6
+        },
+        {
+            "age": 10,
+            "fullname": "A222zLI",
+            "id": 7
+        }
+    ],
+    "actor_added_id": 7,
+    "actors_count": 4,
+    "success": true
+}
 ```
-## Deployment N/A
+PATCH /movies/{movie_id} (Requires EXECUTIVE or DIRECTED ROLE)
+* General: 
+  * takes a movie id and update it with the give data and returns a list of movies objects, updated_movie_id, number of movies and success value.
+  * Sample:
+```bash
+{
+    "Movies": [
+        {
+            "genres": "comedy",
+            "id": 8,
+            "title": "TEzST"
+        },
+        {
+            "genres": "WZUP2",
+            "id": 9,
+            "title": "WZUPMldmddsldsssM2"
+        },
+        {
+            "genres": "WZUP2",
+            "id": 10,
+            "title": "WZUPMldmddxxsldsssM2"
+        },
+        {
+            "genres": "WZUP2",
+            "id": 11,
+            "title": "zzz"
+        }
+    ],
+    "movies_count": 4,
+    "success": true,
+    "updated_movie_id": 8
+}
+```
+PATCH /actors/{actor_id} (Requires EXECUTIVE or DIRECTED ROLE)
+* General: 
+  * takes an actor id and update it with the give data and returns a list of actors objects, updated_actor_id, number of actors and success value.
+  * Sample:
+```bash
+{
+    "Actors": [
+        {
+            "age": 3,
+            "fullname": "KALID",
+            "id": 3
+        },
+        {
+            "age": 15,
+            "fullname": "khzalid",
+            "id": 4
+        },
+        {
+            "age": 30,
+            "fullname": "Nssozzssuf",
+            "id": 6
+        },
+        {
+            "age": 10,
+            "fullname": "A222zLI",
+            "id": 7
+        }
+    ],
+    "actors_count": 4,
+    "success": true,
+    "updated_actor_id": 4
+}
+```
+
 ## Authors
 Saud Almutawa
-## Acknowledgements
-Udacity team and ME (:
