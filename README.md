@@ -33,8 +33,9 @@ python test_app.py
 ```
 
 ## API Reference
-ALL API endpoints can be accessed via https://moviecapstonefsnd.herokuapp.com/
-Auth0 authentication require some information can be found in setup.sh
+ALL API endpoints can be accessed via https://moviecapstonefsnd.herokuapp.com/.
+
+Auth0 authentication require some information can be found in setup.sh.
 
 
 ### Error Handling
@@ -55,298 +56,139 @@ The API will return three error types when requests fail:
 ### Endpoints
 GET /movies
 * General :
-  * returns a dictionary of categories object and a success value
-  * ` curl http://127.0.0.1:5000/categories ` Sample:
+  * returns a a list of movies objects, number of movies and a success value (It does not require any authentications)
+  * ` curl http://127.0.0.1:5000/movies ` Sample:
 ```bash
 {
-  "categories": {
-    "1": "Science", 
-    "2": "Art", 
-    "3": "Geography", 
-    "4": "History", 
-    "5": "Entertainment", 
-    "6": "Sports"
-  }, 
-  "success": true
+    "Movies": [
+        {
+            "genres": "WZUP2",
+            "id": 5,
+            "title": "WZUPMM2"
+        },
+        {
+            "genres": "WZUP2",
+            "id": 8,
+            "title": "WZUPMldmsldsssM2"
+        },
+        {
+            "genres": "WZUP2",
+            "id": 9,
+            "title": "WZUPMldmddsldsssM2"
+        },
+        {
+            "genres": "WZUP2",
+            "id": 10,
+            "title": "WZUPMldmddxxsldsssM2"
+        },
+        {
+            "genres": "WZUP2",
+            "id": 11,
+            "title": "zzz"
+        }
+    ],
+    "movies_count": 5,
+    "success": true
 }
 ```
 
-GET /questions
+GET /actors
 * General: 
-  * returns a dictionary of categories objects, current category, total questions, success value and a list of questions object paginated 10 questions per page 
-  * ` curl http://127.0.0.1:5000/questions ` Sample:
+  * returns a list of actors object, number of actors, success value.
+  * ` curl http://127.0.0.1:5000/actors ` Sample:
 ```bash
 {
-  "categories": {
-    "1": "Science",
-    "2": "Art",
-    "3": "Geography",
-    "4": "History",
-    "5": "Entertainment",
-    "6": "Sports"
-  },
-  "current_category": null,
-  "questions": [
-    {
-      "answer": "Edward Scissorhands",
-      "category": 5,
-      "difficulty": 3,
-      "id": 6,
-      "question": "What was the title of the 1990 fantasy directed by Tim Burton about a young man with multi-bladed appendages?"
-    },
-    {
-      "answer": "Muhammad Ali",
-      "category": 4,
-      "difficulty": 1,
-      "id": 9,
-      "question": "What boxer's original name is Cassius Clay?"
-    },
-    {
-      "answer": "Uruguay",
-      "category": 6,
-      "difficulty": 4,
-      "id": 11,
-      "question": "Which country won the first ever soccer World Cup in 1930?"
-    },
-    {
-      "answer": "George Washington Carver",
-      "category": 4,
-      "difficulty": 2,
-      "id": 12,
-      "question": "Who invented Peanut Butter?"
-    },
-    {
-      "answer": "Lake Victoria",
-      "category": 3,
-      "difficulty": 2,
-      "id": 13,
-      "question": "What is the largest lake in Africa?"
-    },
-    {
-      "answer": "The Palace of Versailles",
-      "category": 3,
-      "difficulty": 3,
-      "id": 14,
-      "question": "In which royal palace would you find the Hall of Mirrors?"
-    },
-    {
-      "answer": "Agra",
-      "category": 3,
-      "difficulty": 2,
-      "id": 15,
-      "question": "The Taj Mahal is located in which Indian city?"
-    },
-    {
-      "answer": "Mona Lisa",
-      "category": 2,
-      "difficulty": 3,
-      "id": 17,
-      "question": "La Giaconda is better known as what?"
-    },
-    {
-      "answer": "One",
-      "category": 2,
-      "difficulty": 4,
-      "id": 18,
-      "question": "How many paintings did Van Gogh sell in his lifetime?"
-    },
-    {
-      "answer": "Jackson Pollock",
-      "category": 2,
-      "difficulty": 2,
-      "id": 19,
-      "question": "Which American artist was a pioneer of Abstract Expressionism, and a leading exponent of action painting?"
-    }
-  ],
-  "success": true,
-  "total_questions": 18
+    "Actors": [
+        {
+            "age": 3,
+            "fullname": "KALID",
+            "id": 3
+        },
+        {
+            "age": 10,
+            "fullname": "A222LI",
+            "id": 4
+        },
+        {
+            "age": 30,
+            "fullname": "Nssossuf",
+            "id": 5
+        },
+        {
+            "age": 30,
+            "fullname": "Nssozzssuf",
+            "id": 6
+        }
+    ],
+    "actors_count": 4,
+    "success": true
 }
 ```
-DELETE /questions/{question_id}
+DELETE /movies/{movie_id} (Requires Executive ROLE)
 * General:
-  * Takes a question id and deletes the question, then returns a dictionary of deleted question id, success value, list of questions object paginated 10 per page, total questions and the current category
-  * ` curl http://127.0.0.1:5000/questions/6 -X DELETE ` Sample:
+  * Takes a movie id and remove it from the database, returns a list of movies object, number of movies, delete movie id and success value.
+  * ` curl http://127.0.0.1:5000/movies/5 -X DELETE ` Sample:
 ```bash
 {
-  "current_category": null,
-  "deleted": 6,
-  "questions": [
-    {
-      "answer": "Muhammad Ali",
-      "category": 4,
-      "difficulty": 1,
-      "id": 9,
-      "question": "What boxer's original name is Cassius Clay?"
-    },
-    {
-      "answer": "Uruguay",
-      "category": 6,
-      "difficulty": 4,
-      "id": 11,
-      "question": "Which country won the first ever soccer World Cup in 1930?"
-    },
-    {
-      "answer": "George Washington Carver",
-      "category": 4,
-      "difficulty": 2,
-      "id": 12,
-      "question": "Who invented Peanut Butter?"
-    },
-    {
-      "answer": "Lake Victoria",
-      "category": 3,
-      "difficulty": 2,
-      "id": 13,
-      "question": "What is the largest lake in Africa?"
-    },
-    {
-      "answer": "The Palace of Versailles",
-      "category": 3,
-      "difficulty": 3,
-      "id": 14,
-      "question": "In which royal palace would you find the Hall of Mirrors?"
-    },
-    {
-      "answer": "Agra",
-      "category": 3,
-      "difficulty": 2,
-      "id": 15,
-      "question": "The Taj Mahal is located in which Indian city?"
-    },
-    {
-      "answer": "Mona Lisa",
-      "category": 2,
-      "difficulty": 3,
-      "id": 17,
-      "question": "La Giaconda is better known as what?"
-    },
-    {
-      "answer": "One",
-      "category": 2,
-      "difficulty": 4,
-      "id": 18,
-      "question": "How many paintings did Van Gogh sell in his lifetime?"
-    },
-    {
-      "answer": "Jackson Pollock",
-      "category": 2,
-      "difficulty": 2,
-      "id": 19,
-      "question": "Which American artist was a pioneer of Abstract Expressionism, and a leading exponent of action painting?"
-    },
-    {
-      "answer": "The Liver",
-      "category": 1,
-      "difficulty": 4,
-      "id": 20,
-      "question": "What is the heaviest organ in the human body?"
-    }
-  ],
-  "success": true,
-  "total_questions": 17
+    "Movies": [
+        {
+            "genres": "WZUP2",
+            "id": 8,
+            "title": "WZUPMldmsldsssM2"
+        },
+        {
+            "genres": "WZUP2",
+            "id": 9,
+            "title": "WZUPMldmddsldsssM2"
+        },
+        {
+            "genres": "WZUP2",
+            "id": 10,
+            "title": "WZUPMldmddxxsldsssM2"
+        },
+        {
+            "genres": "WZUP2",
+            "id": 11,
+            "title": "zzz"
+        }
+    ],
+    "deleted_movie_id": 5,
+    "movies_count": 4,
+    "success": true
 }
 ```
-POST /questions
+
+DELETE /actors (Require EXECUTIVE or DIRECTED ROLE)
 * General:
-  * Insert question object by taking  a question string, answer, difficulty (int) and category(int) and returns success value, total questions, current category and a list of questions object paginated 10 per page
-  * ` curl http://127.0.0.1:5000/questions -X POST -H 'Content-Type: application/json' -d '{"question":"Is this readme","answer":"Yes","difficulty":2,"category":2}'
+  * Takes an actor id and remove it from the database, returns a list of actors object, number of actors, delete actor id and success value
+  * ` curl http://127.0.0.1:5000/actors/5 -X DELETE `
 ```bash
 {
-  "categories": {
-    "1": "Science", 
-    "2": "Art", 
-    "3": "Geography", 
-    "4": "History", 
-    "5": "Entertainment", 
-    "6": "Sports"
-  }, 
-  "current_category": null, 
-  "questions": [
-    {
-      "answer": "Muhammad Ali", 
-      "category": 4, 
-      "difficulty": 1, 
-      "id": 9, 
-      "question": "What boxer's original name is Cassius Clay?"
-    }, 
-    {
-      "answer": "Uruguay", 
-      "category": 6, 
-      "difficulty": 4, 
-      "id": 11, 
-      "question": "Which country won the first ever soccer World Cup in 1930?"
-    }, 
-    {
-      "answer": "George Washington Carver", 
-      "category": 4, 
-      "difficulty": 2, 
-      "id": 12, 
-      "question": "Who invented Peanut Butter?"
-    }, 
-    {
-      "answer": "Lake Victoria", 
-      "category": 3, 
-      "difficulty": 2, 
-      "id": 13, 
-      "question": "What is the largest lake in Africa?"
-    }, 
-    {
-      "answer": "The Palace of Versailles", 
-      "category": 3, 
-      "difficulty": 3, 
-      "id": 14, 
-      "question": "In which royal palace would you find the Hall of Mirrors?"
-    }, 
-    {
-      "answer": "Agra", 
-      "category": 3, 
-      "difficulty": 2, 
-      "id": 15, 
-      "question": "The Taj Mahal is located in which Indian city?"
-    }, 
-    {
-      "answer": "Mona Lisa", 
-      "category": 2, 
-      "difficulty": 3, 
-      "id": 17, 
-      "question": "La Giaconda is better known as what?"
-    }, 
-    {
-      "answer": "One", 
-      "category": 2, 
-      "difficulty": 4, 
-      "id": 18, 
-      "question": "How many paintings did Van Gogh sell in his lifetime?"
-    }, 
-    {
-      "answer": "Jackson Pollock", 
-      "category": 2, 
-      "difficulty": 2, 
-      "id": 19, 
-      "question": "Which American artist was a pioneer of Abstract Expressionism, and a leading exponent of action painting?"
-    }, 
-    {
-      "answer": "The Liver", 
-      "category": 1, 
-      "difficulty": 4, 
-      "id": 20, 
-      "question": "What is the heaviest organ in the human body?"
-    },
-    {
-      "answer": "Yes", 
-      "category": 2, 
-      "difficulty": 2, 
-      "id": 21, 
-      "question": "Is this readme"
-    }
-  ], 
-  "success": true, 
-  "total_questions": 18
+    "Actors": [
+        {
+            "age": 3,
+            "fullname": "KALID",
+            "id": 3
+        },
+        {
+            "age": 10,
+            "fullname": "A222LI",
+            "id": 4
+        },
+        {
+            "age": 30,
+            "fullname": "Nssozzssuf",
+            "id": 6
+        }
+    ],
+    "actors_count": 3,
+    "deleted_actor_id": 5,
+    "success": true
 }
 ```
-GET /categories/{category_id}/questions
+POST /movies (Requires EXECUTIVE ROLE)
 * General: 
-  * Takes category id and returns current category, success value, total questions, a list of questions object paginated 10 per pages bases on the category id
+  * inserts a movie into the database 
   * ` curl http://127.0.0.1:5000/categories/4/questions '
 ```bash
 {
