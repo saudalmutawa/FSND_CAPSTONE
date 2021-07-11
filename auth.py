@@ -1,5 +1,5 @@
 import json
-from flask import request, _request_ctx_stack,abort
+from flask import request, _request_ctx_stack, abort
 from functools import wraps
 from jose import jwt
 from urllib.request import urlopen
@@ -9,12 +9,14 @@ AUTH0_DOMAIN = 'dev-1a5p2b7l.us.auth0.com'
 ALGORITHMS = ['RS256']
 API_AUDIENCE = 'agency'
 
-## AuthError Exception
+# AuthError Exception
+
 
 class AuthError(Exception):
     def __init__(self, error, status_code):
         self.error = error
         self.status_code = status_code
+
 
 def get_token_auth_header():
     auth = request.headers.get('Authorization', None)
@@ -45,12 +47,13 @@ def get_token_auth_header():
 
     return parts[1]
 
+
 def check_permissions(permission, payload):
     if 'permissions' not in payload:
-                        raise AuthError({
-                            'code': 'invalid_claims',
-                            'description': 'Permissions not included in JWT.'
-                        }, 400)
+        raise AuthError({
+            'code': 'invalid_claims',
+            'description': 'Permissions not included in JWT.'
+        }, 400)
 
     if permission not in payload['permissions']:
         raise AuthError({
@@ -59,11 +62,12 @@ def check_permissions(permission, payload):
         }, 403)
     return True
 
+
 def verify_decode_jwt(token):
     jsonurl = urlopen(f'https://{AUTH0_DOMAIN}/.well-known/jwks.json')
     jwks = json.loads(jsonurl.read())
     unverified_header = jwt.get_unverified_header(token)
-    
+
     if 'kid' not in unverified_header:
         raise AuthError({
             'code': 'invalid_header',
@@ -100,7 +104,7 @@ def verify_decode_jwt(token):
         except jwt.JWTClaimsError:
             raise AuthError({
                 'code': 'invalid_claims',
-                'description': 'Incorrect claims. Please, check the audience and issuer.'
+                'description': 'Incorrect claims.'
             }, 401)
 
         except Exception:
@@ -110,9 +114,9 @@ def verify_decode_jwt(token):
             }, 400)
 
     raise AuthError({
-                'code': 'invalid_header',
+        'code': 'invalid_header',
                 'description': 'Unable to find the appropriate key.'
-            }, 400)
+    }, 400)
 
 
 def requires_auth(permission=''):
@@ -122,7 +126,7 @@ def requires_auth(permission=''):
             token = get_token_auth_header()
             try:
                 payload = verify_decode_jwt(token)
-            except:
+            except BaseException:
                 raise AuthError({
                     'code': 'unauthorized',
                     'description': 'Permissions not found'
