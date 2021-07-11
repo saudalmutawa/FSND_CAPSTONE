@@ -16,7 +16,8 @@ class capstoneTestCase(unittest.TestCase):
         self.Executive_Token = os.getenv('EXECUTIVE_ROLE_TOKEN')
         self.Directed_Token = os.getenv('DIRECTED_ROLE_TOKEN')
         self.client = self.app.test_client
-        self.database_path = "postgresql://postgres:9048@localhost:5432/capstone_test"
+        self.d_path = "postgresql://postgres:9048@localhost:5432/capstone_test"
+        self.database_path = self.d_path
         setup_db(self.app, self.database_path)
 
         with self.app.app_context():
@@ -44,72 +45,126 @@ class capstoneTestCase(unittest.TestCase):
         self.assertTrue(data['success'])
 
     def test_post_movies_with_EXECUTIVE_authorization(self):
-        res = self.client().post('/movies', json={"title": "testing222233", "genres": "TEST2223"}, headers={
-            "Authorization": 'bearer ' + self.Executive_Token})
+        res = self.client().post(
+            '/movies',
+            json={
+                "title": "testing222233",
+                "genres": "TEST2223"},
+            headers={
+                "Authorization": 'bearer ' +
+                self.Executive_Token})
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 200)
         self.assertTrue(data['success'])
 
     def test_403error_post_movies_with_DIRECTED_authorization(self):
-        res = self.client().post('/movies', json={"title": "testing32323", "genres": "TEST22323"}, headers={
-            "Authorization": 'bearer ' + self.Directed_Token})
+        res = self.client().post(
+            '/movies',
+            json={
+                "title": "testing32323",
+                "genres": "TEST22323"},
+            headers={
+                "Authorization": 'bearer ' +
+                self.Directed_Token})
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 403)
         self.assertFalse(data['success'])
 
     def test_400error_post_movies_with_emptyTITLE(self):
-        res = self.client().post('/movies', json={"title": "", "genres": "TEST2"}, headers={
-            "Authorization": 'bearer ' + self.Executive_Token})
+        res = self.client().post(
+            '/movies',
+            json={
+                "title": "",
+                "genres": "TEST2"},
+            headers={
+                "Authorization": 'bearer ' +
+                self.Executive_Token})
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 400)
         self.assertFalse(data['success'])
 
     def test_post_actors(self):
-        res = self.client().post('/actors', json={"fullname": "Khalmfkdfkmfied", "age": 50}, headers={
-            "Authorization": 'bearer ' + self.Executive_Token})
+        res = self.client().post(
+            '/actors',
+            json={
+                "fullname": "Khalmfkdfkmfied",
+                "age": 50},
+            headers={
+                "Authorization": 'bearer ' +
+                self.Executive_Token})
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 200)
         self.assertTrue(data['success'])
 
     def test_400error_post_actors(self):
-        res = self.client().post('/actors', json={"fullname": "", "age": 50}, headers={
-            "Authorization": 'bearer ' + self.Executive_Token})
+        res = self.client().post(
+            '/actors',
+            json={
+                "fullname": "",
+                "age": 50},
+            headers={
+                "Authorization": 'bearer ' +
+                self.Executive_Token})
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 400)
         self.assertFalse(data['success'])
 
     def test_update_movies(self):
-        res = self.client().patch('/movies/6', json={"title": "CHAkwmdkwmdD", "genres": "DRAsdsdMA"}, headers={
-            "Authorization": 'bearer ' + self.Executive_Token})
+        res = self.client().patch(
+            '/movies/6',
+            json={
+                "title": "CHAkwmdkwmdD",
+                "genres": "DRAsdsdMA"},
+            headers={
+                "Authorization": 'bearer ' +
+                self.Executive_Token})
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 200)
         self.assertTrue(data['success'])
 
     def test_422error_update_movies(self):
-        res = self.client().patch('/movies/7', json={"title": "", "genres": "DRAMA"}, headers={
-            "Authorization": 'bearer ' + self.Executive_Token})
+        res = self.client().patch(
+            '/movies/7',
+            json={
+                "title": "",
+                "genres": "DRAMA"},
+            headers={
+                "Authorization": 'bearer ' +
+                self.Executive_Token})
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 422)
         self.assertFalse(data['success'])
 
     def test_update_actors(self):
-        res = self.client().patch('/actors/3', json={"fullname": "SAAAARA", "age": 20}, headers={
-            "Authorization": 'bearer ' + self.Executive_Token})
+        res = self.client().patch(
+            '/actors/3',
+            json={
+                "fullname": "SAAAARA",
+                "age": 20},
+            headers={
+                "Authorization": 'bearer ' +
+                self.Executive_Token})
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 200)
         self.assertTrue(data['success'])
 
     def test_422error_update_actors(self):
-        res = self.client().patch('/actors/3', json={"fullname": "", "age": 20}, headers={
-            "Authorization": 'bearer ' + self.Executive_Token})
+        res = self.client().patch(
+            '/actors/3',
+            json={
+                "fullname": "",
+                "age": 20},
+            headers={
+                "Authorization": 'bearer ' +
+                self.Executive_Token})
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 422)
