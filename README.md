@@ -32,7 +32,7 @@ To test the application locally run the following command
 python test_app.py
 ```
 
-##Hosting Instructions
+## Hosting Instructions
 First, we need to create an account with Heroku here and then we need to download the Heroku CLI (Command Line Interface) in order to run commands from the terminal that enable us to create a Heroku application and manage it.
 After you create your account, install Heroku with Homebrew by running:
 ` brew tap heroku/brew && brew install heroku `
