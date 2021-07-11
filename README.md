@@ -32,6 +32,28 @@ To test the application locally run the following command
 python test_app.py
 ```
 
+##Hosting Instructions
+First, we need to create an account with Heroku here and then we need to download the Heroku CLI (Command Line Interface) in order to run commands from the terminal that enable us to create a Heroku application and manage it.
+After you create your account, install Heroku with Homebrew by running:
+` brew tap heroku/brew && brew install heroku `
+
+If you need alternate instructions for the download they can be found here. You can verify the download by typing
+` which heroku `
+Once you have the Heroku CLI you can start to run Heroku commands! Enter ` heroku login `and then provide your authentication information. Now you can start running Heroku commands for your account and applications.
+
+### Create Heroku app
+In order to create the Heroku app run ` heroku create name_of_your_app ` The output will include a git url for your Heroku application. Copy this as, we'll use it in a moment.
+
+### Add git remote for Heroku to local repository
+Using the git url obtained from the last step, in terminal run:
+` git remote add heroku heroku_git_url `.
+Run ` heroku config --app name_of_your_application ` in order to check your configuration variables in Heroku. You will see DATABASE_URL and the URL of the database you just created. That's excellent, but there were a lot more environment variables our apps use.
+
+### push local repo into heroku 
+`git push heroku master`
+### Run migrations
+Once your app is deployed, run migrations by running:
+` heroku run python manage.py db upgrade --app name_of_your_application `
 ## API Reference
 ALL API endpoints can be accessed via https://moviecapstonefsnd.herokuapp.com/.
 
@@ -323,6 +345,8 @@ PATCH /actors/{actor_id} (Requires EXECUTIVE or DIRECTED ROLE)
     "updated_actor_id": 4
 }
 ```
+## Motivation
+My motivation to build this project is to allow all users to view actors and movies withing a webpage, also allowing directors and executive to add, update and delete actors and movies.
 
 ## Authors
 Saud Almutawa
